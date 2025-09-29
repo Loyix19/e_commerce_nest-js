@@ -17,5 +17,4 @@ export class AuthController {
     login(@Body() LoginData:LoginAuthDto){
         return this.authService.login(LoginData);
     }
-
 }

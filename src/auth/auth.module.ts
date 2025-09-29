@@ -5,17 +5,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../users/users.entity';
 import { UsersModule } from '../users/users.module';
 import { JwtModule } from '@nestjs/jwt';
+import { jwtConstants } from './dto/jwt.constants';
+import { JwtStrategy } from './dto/jwt.strategy';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([User]), // 👈 para inyectar el repo
-    UsersModule,
-    JwtModule.register({
-      secret: process.env.JWT_SECRET || 'secreto123', // usa variable de entorno
-      signOptions: { expiresIn: '1h' },
-    }),
+  imports: [TypeOrmModule.forFeature([User]),
+  JwtModule.register({
+    secret:jwtConstants.secret,
+    signOptions: {expiresIn:'12h'},
+  }),
   ],
-  providers: [AuthService],
+  providers: [AuthService, JwtStrategy],
   controllers: [AuthController],
 })
 export class AuthModule {}
