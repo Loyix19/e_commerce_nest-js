@@ -17,4 +17,7 @@ export class UsersService {
     findAll() {
         return this.usersRepository.find(); // retorna todos los usuarios
     }
+    findAll_id(id: number){
+        return this.usersRepository.findOneBy({id});
+    }
 }
